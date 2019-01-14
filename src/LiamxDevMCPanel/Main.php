@@ -7,11 +7,13 @@ use pocketmine\plugin\PluginBase;
 class Main extends PluginBase {
 
     public function onEnable() {
-
-        $this->getLogger()->info("Loading...");
-
-        $this->getServer()->getScheduler()->scheduleRepeatingTask(new Task($this), 10*20);
-
+        if(file_exists("genisys.yml")) {
+            $this->getLogger()->info("Loading API for Genisys");
+            $this->getServer()->getScheduler()->scheduleRepeatingTask(new GenisysTask($this), 10*20);
+        } else {
+            $this->getLogger()->info("Loading API for PMMP");
+            $this->getScheduler()->scheduleRepeatingTask(new PmmpTask($this), 10*20);
+        }
     }
 
 }

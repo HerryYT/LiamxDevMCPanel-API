@@ -4,14 +4,11 @@ namespace LiamxDevMCPanel;
 
 use pocketmine\scheduler\PluginTask;
 
-class Task extends PluginTask {
+class GenisysTask extends PluginTask {
 
     public function __construct($plugin) {
-
         parent::__construct($plugin);
-
         $this->plugin = $plugin;
-
     }
 
     public function onRun($currentTick) {

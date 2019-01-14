@@ -1,6 +1,8 @@
 ---
 name: LiamxDevMCPanel-API
-version: 1.0.0
-api: [1.0.0]
+version: 2.0.0
+api: [1.0.0, 2.0.0, 3.0.0]
 main: LiamxDevMCPanel\Main
+author: Fenek912
+description: API for getting info from MCPE servers
 ...
