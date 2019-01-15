@@ -9,17 +9,16 @@
 
 namespace LiamxDevMCPanel;
 
-use pocketmine\scheduler\PluginTask;
+use pocketmine\scheduler\Task;
 
-class GenisysTask extends PluginTask {
+class PmmpStats extends Task {
 
     public function __construct($plugin) {
-        parent::__construct($plugin);
         $this->plugin = $plugin;
     }
 
     public function onRun($currentTick) {
-        $this->plugin->updateJson();
+        $this->plugin->sendStats();
     }
 
 }

@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * LiamxDevMCPanel-API v3.0.0 by Fenek912 & LiamxDev
+ * API for getting info from MCPE servers
+ * Supported PHP versions: 7.0.x, 7.2.x
+ * https://github.com/Fenek912/LiamxDevMCPanel-API
+*/
+
 namespace LiamxDevMCPanel;
 
 use pocketmine\scheduler\Task;
@@ -11,13 +18,7 @@ class PmmpTask extends Task {
     }
 
     public function onRun($currentTick) {
-        $playersArray = array();
-        foreach($this->plugin->getServer()->getOnlinePlayers() as $player) {
-            $playerName = $player->getName();
-            array_push($playersArray, $playerName);
-        }
-        $jsonData = json_encode($playersArray);
-        file_put_contents("data.json", $jsonData);
+        $this->plugin->updateJson();
     }
 
 }

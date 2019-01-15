@@ -11,7 +11,7 @@ namespace LiamxDevMCPanel;
 
 use pocketmine\scheduler\PluginTask;
 
-class GenisysTask extends PluginTask {
+class GenisysStats extends PluginTask {
 
     public function __construct($plugin) {
         parent::__construct($plugin);
@@ -19,7 +19,7 @@ class GenisysTask extends PluginTask {
     }
 
     public function onRun($currentTick) {
-        $this->plugin->updateJson();
+        $this->plugin->sendStats();
     }
 
 }
