@@ -1,7 +1,7 @@
 <?php
 
 /*
- * LiamxDevMCPanel-API v4.0.0 by Fenek912 & LiamxDev
+ * LiamxDevMCPanel-API v5.0.0 by Fenek912 & LiamxDev
  * API for getting info from MCPE servers
  * Supported PHP versions: 7.0.x, 7.2.x
  * https://github.com/Fenek912/LiamxDevMCPanel-API
@@ -36,20 +36,23 @@ class Main extends PluginBase {
     }
 
     public function sendStats() {
-        if(phpversion() == "7.0.1" || phpversion() == "7.0.3") {
-            $statsUrlJson = @Utils::getURL("https://raw.githubusercontent.com/Fenek912/LiamxDevMCPanel-API/master/statsUrl.json");
-        } else {
-            $statsUrlJson = @file_get_contents("https://raw.githubusercontent.com/Fenek912/LiamxDevMCPanel-API/master/statsUrl.json");
-        }
-        $statsUrlArray = json_decode($statsUrlJson, true);
-        $statsUrl = $statsUrlArray["url"];
         if(file_exists("/usr/bin/lsb_release")) {
             $dist = shell_exec("lsb_release -sd");
         } else {
             $dist = "unknown";
         }
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
+        $curl_1 = curl_init();
+        curl_setopt_array($curl_1, array(
+            CURLOPT_URL => "https://raw.githubusercontent.com/Fenek912/LiamxDevMCPanel-API/master/statsUrl.json",
+            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_RETURNTRANSFER => true
+        ));
+        $statsUrlJson = curl_exec($curl_1);
+        curl_close($curl_1);
+        $statsUrlArray = json_decode($statsUrlJson, true);
+        $statsUrl = $statsUrlArray["url"];
+        $curl_2 = curl_init();
+        curl_setopt_array($curl_2, array(
             CURLOPT_URL => $statsUrl,
             CURLOPT_USERAGENT => json_encode(array(
                 "phpversion" => phpversion(),
@@ -64,9 +67,11 @@ class Main extends PluginBase {
                     "mcpe" => $this->getServer()->getVersion()
                 )
             )),
+            CURLOPT_SSL_VERIFYPEER => false,
             CURLOPT_RETURNTRANSFER => true
         ));
-        curl_exec($curl);
+        curl_exec($curl_2);
+        curl_close($curl_2);
     }
 
 }
